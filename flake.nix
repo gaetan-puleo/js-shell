@@ -17,9 +17,15 @@
           pkgs.bun
           pkgs.nodejs_20
           pkgs.yarn
+
+
+          # TO DO add libuuid and test with
+          pkgs.libuuid
         ];
+
         shellHook = ''
-          exec tmux
+          export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [ pkgs.libuuid ]}"
+          exec env LD_LIBRARY_PATH=$LD_LIBRARY_PATH tmux
         '';
       };
       src = [
